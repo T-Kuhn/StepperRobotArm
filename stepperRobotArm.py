@@ -19,11 +19,25 @@ class StepperRobotArm:
         self.port.flushInput()
 
     def waitForResponse(self):
-        self.port.readline()
+        return self.port.readline()
 
     def sendBlock(self):
         port.write(b"G90 G0 X5.0 Y5.0 Z5.0 A1.0")
         port.write(b"\n")
+
+    def checkIfIdle(self):
+        self.port.write(b"?")
+        if b"Idle" in self.waitForResponse():
+            return True
+        else:
+            return False
+
+    def moveToPosition(self, targetPosDict):
+        self.sendTargetPositions(
+            -targetPosDict["X"], 
+            targetPosDict["Y"], 
+            -targetPosDict["Z"], 
+            targetPosDict["A"])
 
     def sendTargetPositions(self, x, y, z, a):
         self.currentPosDict = {"X": x, "Y": y, "Z": z, "A": a}
@@ -35,19 +49,14 @@ class StepperRobotArm:
         self.port.write(b"\n")
         self.waitForResponse()
 
-    def getTotalChange(self, replicaArm):
-        total = abs(-replicaArm.posDict["X"] - self.currentPosDict["X"])
-        total = total + abs(replicaArm.posDict["Y"] - self.currentPosDict["Y"])
-        total = total + abs(-replicaArm.posDict["Z"] - self.currentPosDict["Z"])
-        total = total + abs(replicaArm.posDict["A"] - self.currentPosDict["A"])
+    def getTotalChange(self, rArmPosDict):
+        total = abs(-rArmPosDict["X"] - self.currentPosDict["X"])
+        total = total + abs(rArmPosDict["Y"] - self.currentPosDict["Y"])
+        total = total + abs(-rArmPosDict["Z"] - self.currentPosDict["Z"])
+        total = total + abs(rArmPosDict["A"] - self.currentPosDict["A"])
         return total
 
     def useCurrentPosAsOrigin(self):
         self.port.write(b"G10 P0 L20 X0 Y0 Z0 A0")
         self.port.write(b"\n")
         self.waitForResponse()
-
-# - - - - - - - - - - - - - - - - 
-# - - - - - -  MEMO - - - - - - -
-# - - - - - - - - - - - - - - - -
-#port.write("{:.6f}".format(coordX))

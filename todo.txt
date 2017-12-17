@@ -1,0 +1,17 @@
+
+
+
+# - - - - - - - - - - - - - - - - 
+# - - - - - -  TODO - - - - - - -
+# - - - - - - - - - - - - - - - -
+- Check whether those 12V motors are stronger then the 5V ones.
+
+# - - - - - - - - - - - - - - - - 
+# - - - - - -  DONE - - - - - - -
+# - - - - - - - - - - - - - - - -
+- Only send the next target position when grbl is idle (check with "?")
+- refactor code.
+
+# - - - - - - - - - - - - - - - - 
+# - - - - - -  MEMO - - - - - - -
+# - - - - - - - - - - - - - - - -
