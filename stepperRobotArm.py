@@ -1,6 +1,7 @@
+#!/usr/bin/python3
+
 import time
 from serial import Serial
-import RPi.GPIO as GPIO
 
 # - - - - - - - - - - - - - - - - 
 # - - -  StepperRobotArm  - - - -
