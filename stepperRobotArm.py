@@ -79,10 +79,15 @@ class StepperRobotArm:
         return total
 
     def shortPressAction(self):
+        # This function gets executed on short button press.
         if self.mode is 'follow':
             self.saveCurrentPos()
         else:
             self.prepareReplay()
+
+    def longPressAction(self):
+        # This function gets executed on long button press.
+        self.switchModes()
 
     def saveCurrentPos(self):
         print('saving current pos')

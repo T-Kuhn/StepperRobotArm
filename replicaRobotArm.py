@@ -20,7 +20,7 @@ class ReplicaRobotArm:
         self.updatePosDict()
         self.offsetPosDict()
         self.multiplyPosDict()
-        self.printPosDict()
+        #self.printPosDict()
 
     def getCorrValues(self):
         self.corrDict["X"] = self.mcp.read_adc(1)
