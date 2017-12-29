@@ -16,3 +16,34 @@
 # - - - - - - - - - - - - - - - - 
 # - - - - - -  MEMO - - - - - - -
 # - - - - - - - - - - - - - - - -
+- so here's the thing.
+we are currently thinking about that button stuff.
+what exactly is it that we need to achieve with that button?
+Here's what we want from a user prospective:
+
+"button short press":
+- the position at which the robot arm is currently residing get's added to the
+replay array.
+- LED blinks twice.
+
+"reset the thing with the reset button"
+- the replay array get's deleted.
+
+ "play with long button press."
+
+
+So how about that buttonclass. some thoughts:
+- the update get's called every 200ms
+- inside the buttonclass, we need to 
+- - - Write the current position into a replay array - - -
+
+so what about this. When we create the button we set a reference to the replay
+array and the current position thing.
+
+okay. so functions can be passed just like parameters. so we just set 2
+functions in the button class which will be executed on long press / short
+press.
+
+so heres a function we need;
+save position.
+let's see here. we press that button long to switch to replay mode.

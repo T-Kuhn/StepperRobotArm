@@ -13,7 +13,8 @@ import RPi.GPIO as GPIO
 # - - BUTTON CONTROLLER CLASS - -
 # - - - - - - - - - - - - - - - -
 class Button:
-    def __init__(self):
+    def __init__(self, pin, shortPressFun, longPressFun):
+        self.buttonPin = pin
         self.buttonPressedFlag = False 
         self.helperFlag1 = False 
         self.buttonReleasedCounter = 0
@@ -21,9 +22,11 @@ class Button:
         self.pressStartTime = 0;
         self.pressEndTime = 0;
         self.pressDuration = 0
-        GPIO.setup(21, GPIO.OUT) 
+        self.shortPressFun = shortPressFun
+        self.longPressFun = longPressFun
 
-    def update(self, buttonStatus):
+    def update(self):
+        buttonStatus = GPIO.input(self.buttonPin)
         if buttonStatus and not self.helperFlag1:
             # Trigger on positive flank of Button Input Signal
             self.buttonPressedFlag = True;
@@ -54,11 +57,9 @@ class Button:
         return int(time.time()*1000)
 
     def longPress(self):
-        GPIO.output(21, 0)
-        print("long press")
-        pass
+        print("pin {0} long press".format(self.buttonPin))
+        self.longPressFun()
 
     def shortPress(self):
-        GPIO.output(21, 1)
-        print("short press")
-        pass
+        print("pin {0} short press".format(self.buttonPin))
+        self.shortPressFun()

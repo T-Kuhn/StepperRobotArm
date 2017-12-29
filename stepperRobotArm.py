@@ -12,6 +12,12 @@ class StepperRobotArm:
         self.wakeUpGrbl()
         self.useCurrentPosAsOrigin()
         self.currentPosDict = {"X": 0, "Y": 0, "Z": 0, "A": 0}
+        self.replayList = []
+        self.replayStepList = []
+        self.mode = 'follow'
+        # available modes are:
+        # follow
+        # replay
 
     def wakeUpGrbl(self):
         self.port.write(b"\r\n\r\n")
@@ -33,11 +39,26 @@ class StepperRobotArm:
         else:
             return False
 
+    def switchModes(self):
+        print('switching modes')
+        if self.mode is 'follow':
+            self.mode = 'replay'
+            self.prepareReplay()
+        else:
+            self.mode = 'follow'
+
     def moveToPosition(self, targetPosDict):
         self.sendTargetPositions(
             -targetPosDict["X"], 
             targetPosDict["Y"], 
             -targetPosDict["Z"], 
+            targetPosDict["A"])
+
+    def moveToPositionRaw(self, targetPosDict):
+        self.sendTargetPositions(
+            targetPosDict["X"], 
+            targetPosDict["Y"], 
+            targetPosDict["Z"], 
             targetPosDict["A"])
 
     def sendTargetPositions(self, x, y, z, a):
@@ -56,6 +77,23 @@ class StepperRobotArm:
         total = total + abs(-rArmPosDict["Z"] - self.currentPosDict["Z"])
         total = total + abs(rArmPosDict["A"] - self.currentPosDict["A"])
         return total
+
+    def shortPressAction(self):
+        if self.mode is 'follow':
+            self.saveCurrentPos()
+        else:
+            self.prepareReplay()
+
+    def saveCurrentPos(self):
+        print('saving current pos')
+        self.replayList.append(('arm', dict(self.currentPosDict)))
+
+    def prepareReplay(self):
+        # copy replay list into replay step list
+        self.replayStepList = list(self.replayList)
+
+    def deleteReplayList(self):
+        self.replayList = []
 
     def useCurrentPosAsOrigin(self):
         self.port.write(b"G10 P0 L20 X0 Y0 Z0 A0")
