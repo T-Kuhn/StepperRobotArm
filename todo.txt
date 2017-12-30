@@ -1,20 +1,22 @@
 # - - - - - - - - - - - - - - - - 
 # - - - - - -  TODO - - - - - - -
 # - - - - - - - - - - - - - - - -
-- implement mode on/off switch for replay mode
-- implement mode on/off switch for following mode
 - Add a delete PositionList button.
 - make the LED blink whenever a position is saved.
 - make the LED blink more slowly when in replay mode.
 - write up how to use.
-- Check whether those 12V motors are stronger then the 5V ones.
 - get a servo working with pigpiod.
+- Check whether those 12V motors are stronger then the 5V ones.
 - add the servo position management to the save/replay functionality.
+- use the 3rd. potentiometer as servo (gripper) target pos
+- build a gripper.
 
 # - - - - - - - - - - - - - - - - 
 # - - - - - -  DONE - - - - - - -
 # - - - - - - - - - - - - - - - -
 - make switch class.
+- implement mode on/off switch for replay mode
+- implement mode on/off switch for following mode
 
 # - - - - - - - - - - - - - - - - 
 # - - - - - -  MEMO - - - - - - -

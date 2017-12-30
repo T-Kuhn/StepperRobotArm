@@ -32,9 +32,9 @@ replicaArm = ReplicaRobotArm()
 replayButton = Button(20, stepperArm.shortPressAction, stepperArm.longPressAction)
 onSwitch = Switch(6, lambda: True, lambda: True)
 unused1Switch = Switch(13, lambda: True, lambda: True)
-unused2Switch = Switch(19, lambda: True, lambda: True)
-followSwitch = Switch(26, lambda: True, lambda: True)
-repeatSwitch = Switch(12, lambda: True, lambda: True)
+unused2Switch = Switch(19, replicaArm.getCorrValues, lambda: True)
+followSwitch = Switch(26, lambda: stepperArm.setMode('follow'), lambda: stepperArm.setMode('idle'))
+repeatSwitch = Switch(12, lambda: stepperArm.setMode('replay'), lambda: stepperArm.setMode('idle'))
 
 # - - - - - - - - - - - - - - - - 
 # - - - UPDATE INPUT DEVICES  - -
@@ -66,7 +66,7 @@ def updateRobotArm():
 # - - - - - MAIN LOOP - - - - - -
 # - - - - - - - - - - - - - - - -
 while True:
-    updateInputDevices
+    updateInputDevices()
     replicaArm.update()
     updateRobotArm()
     time.sleep(0.1)

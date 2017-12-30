@@ -14,10 +14,11 @@ class StepperRobotArm:
         self.currentPosDict = {"X": 0, "Y": 0, "Z": 0, "A": 0}
         self.replayList = []
         self.replayStepList = []
-        self.mode = 'follow'
+        self.mode = 'idle'
         # available modes are:
         # follow
         # replay
+        # idle
 
     def wakeUpGrbl(self):
         self.port.write(b"\r\n\r\n")
@@ -39,13 +40,15 @@ class StepperRobotArm:
         else:
             return False
 
-    def switchModes(self):
-        print('switching modes')
-        if self.mode is 'follow':
-            self.mode = 'replay'
-            self.prepareReplay()
-        else:
+    def setMode(self, mode):
+        if mode is 'follow':
             self.mode = 'follow'
+        elif mode is 'replay':
+            self.mode = 'replay'
+        elif mode is 'idle':
+            self.mode = 'idel'
+        else:
+            raise NameError('unknown mode.')
 
     def moveToPosition(self, targetPosDict):
         self.sendTargetPositions(
@@ -87,7 +90,7 @@ class StepperRobotArm:
 
     def longPressAction(self):
         # This function gets executed on long button press.
-        self.switchModes()
+        pass
 
     def saveCurrentPos(self):
         print('saving current pos')
