@@ -4,6 +4,14 @@ import os
 import time
 import RPi.GPIO as GPIO
 
+"""
+A class for the use of pushbuttons connected to the Raspberry Pi.
+Buttons need to be pulled down (via external pull down resistor or 
+by using the pull down functionality of the microcontroller). 
+This class provides:
+- software debounce (no chattering)
+- execution of different functions on short press / long press
+"""
 # - - - - - - - - - - - - - - - - 
 # - - - -  BUTTON CLASS - - - - -
 # - - - - - - - - - - - - - - - -
@@ -13,7 +21,7 @@ class Button:
         self.pressedFlag = False 
         self.helperFlag1 = False 
         self.releasedCounter = 0
-        self.longPressTime = 1000;      # All time related properties in Millisecs 
+        self.longPressTime = 1000;      # All time related properties in millisecs 
         self.pressStartTime = 0;
         self.pressEndTime = 0;
         self.pressDuration = 0

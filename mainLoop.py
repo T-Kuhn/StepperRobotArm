@@ -37,10 +37,9 @@ followSwitch = Switch(26, lambda: True, lambda: True)
 repeatSwitch = Switch(12, lambda: True, lambda: True)
 
 # - - - - - - - - - - - - - - - - 
-# - - - - - MAIN LOOP - - - - - -
+# - - - UPDATE INPUT DEVICES  - -
 # - - - - - - - - - - - - - - - -
-while True:
-    # Update all switches / buttons
+def updateInputDevices():
     replayButton.update()
     onSwitch.update()
     unused1Switch.update()
@@ -48,8 +47,11 @@ while True:
     followSwitch.update()
     repeatSwitch.update()
 
-    replicaArm.update()
 
+# - - - - - - - - - - - - - - - - 
+# - - - - UPDATE ROBOT ARM  - - -
+# - - - - - - - - - - - - - - - -
+def updateRobotArm():
     if stepperArm.checkIfIdle():
         if stepperArm.mode is 'follow':
             stepperArm.moveToPosition(replicaArm.posDict)
@@ -60,5 +62,11 @@ while True:
                 if reciever is 'arm':
                     stepperArm.moveToPositionRaw(command)
 
+# - - - - - - - - - - - - - - - - 
+# - - - - - MAIN LOOP - - - - - -
+# - - - - - - - - - - - - - - - -
+while True:
+    updateInputDevices
+    replicaArm.update()
+    updateRobotArm()
     time.sleep(0.1)
-
