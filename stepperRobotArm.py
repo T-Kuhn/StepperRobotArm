@@ -7,7 +7,8 @@ from serial import Serial
 # - - -  StepperRobotArm  - - - -
 # - - - - - - - - - - - - - - - -
 class StepperRobotArm:
-    def __init__(self):
+    def __init__(self, led):
+        self.blinkLED = led
         self.port = Serial("/dev/ttyS0", baudrate=115200, timeout=0.001)
         self.wakeUpGrbl()
         self.useCurrentPosAsOrigin()
@@ -16,9 +17,9 @@ class StepperRobotArm:
         self.replayStepList = []
         self.mode = 'idle'
         # available modes are:
-        # follow
-        # replay
-        # idle
+        # - idle
+        # - follow
+        # - replay
 
     def wakeUpGrbl(self):
         self.port.write(b"\r\n\r\n")
@@ -88,19 +89,17 @@ class StepperRobotArm:
         else:
             self.prepareReplay()
 
-    def longPressAction(self):
-        # This function gets executed on long button press.
-        pass
-
     def saveCurrentPos(self):
-        print('saving current pos')
+        print("saving current pos")
         self.replayList.append(('arm', dict(self.currentPosDict)))
+        self.blinkLED.setMode('fastBlinkTwice')
 
     def prepareReplay(self):
         # copy replay list into replay step list
         self.replayStepList = list(self.replayList)
 
     def deleteReplayList(self):
+        print("Deleting replayList.")
         self.replayList = []
 
     def useCurrentPosAsOrigin(self):

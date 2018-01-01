@@ -1,23 +1,31 @@
 # - - - - - - - - - - - - - - - - 
 # - - - - - -  TODO - - - - - - -
 # - - - - - - - - - - - - - - - -
-- Add a delete PositionList button.
-- make the LED blink whenever a position is saved.
-- make the LED blink more slowly when in replay mode.
-- write up how to use.
+- use a switch to enable/disable endless repeat in replay mode.
 - get a servo working with pigpiod.
+- write up how to use.
 - Check whether those 12V motors are stronger then the 5V ones.
 - add the servo position management to the save/replay functionality.
 - use the 3rd. potentiometer as servo (gripper) target pos
 - build a gripper.
+- use ON switch for starting script. maybe.
 
 # - - - - - - - - - - - - - - - - 
 # - - - - - -  DONE - - - - - - -
 # - - - - - - - - - - - - - - - -
-- make switch class.
-- implement mode on/off switch for replay mode
-- implement mode on/off switch for following mode
+- Add a delete PositionList button.
+- make the LED blink whenever a position is saved.
+- make the LED blink slowly when in replay mode.
 
 # - - - - - - - - - - - - - - - - 
 # - - - - - -  MEMO - - - - - - -
 # - - - - - - - - - - - - - - - -
+
+- fast blinks 2 times in row on button press while mode is "follow".
+-> set mode to "fastBlink" at the same place in code where we save the current
+position to array.
+
+- slower blinks while mode "replay" until replay has finished.
+-> we can achieve this with blinkLED.update() and setting the mode to
+"slowBlink" at the same place in code where the mode get's set to "replay"
+
