@@ -34,7 +34,7 @@ replayButton = Button(20, stepperArm.shortPressAction, lambda: True)
 deleteButton = Button(16, stepperArm.deleteReplayList, lambda: True)
 
 onSwitch = Switch(6, lambda: True, lambda: True)
-unused1Switch = Switch(13, lambda: True, lambda: True)
+endlessRepeatSwitch = Switch(13, lambda: stepperArm.setEndlessReplay(True), lambda: stepperArm.setEndlessReplay(False))
 setOriginSwitch = Switch(19, replicaArm.getCorrValues, lambda: True)
 followSwitch = Switch(26, lambda: stepperArm.setMode('follow'), lambda: stepperArm.setMode('idle'))
 repeatSwitch = Switch(12, lambda: stepperArm.setMode('replay'), lambda: stepperArm.setMode('idle'))
@@ -46,7 +46,7 @@ def updateInputDevices():
     replayButton.update()
     deleteButton.update()
     onSwitch.update()
-    unused1Switch.update()
+    endlessRepeatSwitch.update()
     setOriginSwitch.update()
     followSwitch.update()
     repeatSwitch.update()
@@ -73,6 +73,7 @@ def updateRobotArm():
                     stepperArm.moveToPositionRaw(command)
             else:
                 blinkLED.setMode('idle')
+                stepperArm.replayEnded()
 
 # - - - - - - - - - - - - - - - - 
 # - - - - - MAIN LOOP - - - - - -

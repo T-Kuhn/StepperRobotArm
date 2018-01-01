@@ -16,6 +16,7 @@ class StepperRobotArm:
         self.replayList = []
         self.replayStepList = []
         self.mode = 'idle'
+        self.endlessReplay = False
         # available modes are:
         # - idle
         # - follow
@@ -101,6 +102,14 @@ class StepperRobotArm:
     def deleteReplayList(self):
         print("Deleting replayList.")
         self.replayList = []
+
+    def setEndlessReplay(self, value):
+        print('endless replay:', value)
+        self.endlessReplay = value 
+
+    def replayEnded(self):
+        if self.endlessReplay:
+            self.prepareReplay()
 
     def useCurrentPosAsOrigin(self):
         self.port.write(b"G10 P0 L20 X0 Y0 Z0 A0")
