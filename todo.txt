@@ -1,18 +1,18 @@
 # - - - - - - - - - - - - - - - - 
 # - - - - - -  TODO - - - - - - -
 # - - - - - - - - - - - - - - - -
-- use a switch to enable/disable endless repeat in replay mode.
-- get a servo working with pigpiod.
+- use the 3rd. potentiometer as servo (gripper) target pos
+- add the servo position management to the save/replay functionality.
+- build a gripper.
 - write up how to use.
 - Check whether those 12V motors are stronger then the 5V ones.
-- add the servo position management to the save/replay functionality.
-- use the 3rd. potentiometer as servo (gripper) target pos
-- build a gripper.
 - use ON switch for starting script. maybe.
 
 # - - - - - - - - - - - - - - - - 
 # - - - - - -  DONE - - - - - - -
 # - - - - - - - - - - - - - - - -
+- get a servo working with pigpiod.
+- use a switch to enable/disable endless repeat in replay mode.
 - Add a delete PositionList button.
 - make the LED blink whenever a position is saved.
 - make the LED blink slowly when in replay mode.
