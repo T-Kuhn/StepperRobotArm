@@ -12,12 +12,14 @@ class ReplicaRobotArm:
     def __init__(self):
         self.mcp      = Adafruit_MCP3008.MCP3008(spi=SPI.SpiDev(0, 0))
         self.posDict  = {"X": 0, "Y": 0, "Z": 0, "A": 0}
+        self.servoPos = 0
         self.corrDict = {"X": 0, "Y": 0, "Z": 0, "A": 0}
         self.getCorrValues()
         self.k = 0.085
 
     def update(self):
         self.updatePosDict()
+        self.updateServoPos()
         self.offsetPosDict()
         self.multiplyPosDict()
         #self.printPosDict()
@@ -33,6 +35,9 @@ class ReplicaRobotArm:
         self.posDict["Y"] = self.mcp.read_adc(2)
         self.posDict["Z"] = self.mcp.read_adc(3)
         self.posDict["A"] = self.mcp.read_adc(4)
+
+    def updateServoPos(self):
+        self.servoPos = self.mcp.read_adc(0)
 
     def offsetPosDict(self):
         for key, value in self.posDict.items():

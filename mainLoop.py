@@ -7,6 +7,7 @@ from replicaRobotArm import ReplicaRobotArm
 from blinkLED import BlinkLED 
 from button import Button
 from switch import Switch
+from servoGripper import ServoGripper
 import pigpio
 
 # - - - - - - - - - - - - - - - - 
@@ -21,23 +22,15 @@ GPIO.setup(19, GPIO.IN)  # Unused switch
 GPIO.setup(26, GPIO.IN)  # Follow switch
 GPIO.setup(12, GPIO.IN)  # Repeat switch
 GPIO.setup(21, GPIO.OUT) # Blink LED
-#GPIO.setup(24, GPIO.OUT) # Gripper servo 
+servoGripperPin = 24     # Servo Gripper
 
 # - - - - - - - - - - - - - - - - 
 # - - -  Global Objects - - - - -
 # - - - - - - - - - - - - - - - -
-blinkLED = BlinkLED(21)
-
-# TA
 pi = pigpio.pi('localhost', 8888)
-pi.set_servo_pulsewidth(24, 1000) # safe anti-clockwise
-time.sleep(1)
-pi.set_servo_pulsewidth(24, 1500) # centre
-time.sleep(1)
-pi.set_servo_pulsewidth(24, 2000) # safe clockwise
-time.sleep(10)
-# TA
+servoGripper = ServoGripper(pi, servoGripperPin)
 
+blinkLED = BlinkLED(21)
 stepperArm = StepperRobotArm(blinkLED)
 replicaArm = ReplicaRobotArm()
 
@@ -72,10 +65,13 @@ def updateOutputDevices():
 # - - - - UPDATE ROBOT ARM  - - -
 # - - - - - - - - - - - - - - - -
 def updateRobotArm():
-    if stepperArm.checkIfIdle():
-        if stepperArm.mode is 'follow':
+    if stepperArm.mode is 'follow':
+        if stepperArm.checkIfIdle():
             stepperArm.moveToPosition(replicaArm.posDict)
-        elif stepperArm.mode is 'replay':
+        # TODO: add check whether servo is idle or not.
+        servoGripper.setTargetPos(replicaArm.servoPos)
+    elif stepperArm.mode is 'replay':
+        if stepperArm.checkIfIdle():
             if stepperArm.replayStepList:
                 blinkLED.setMode('slowBlink')
                 reciever, command = stepperArm.replayStepList.pop(0)

@@ -1,8 +1,8 @@
 # - - - - - - - - - - - - - - - - 
 # - - - - - -  TODO - - - - - - -
 # - - - - - - - - - - - - - - - -
-- use the 3rd. potentiometer as servo (gripper) target pos
 - add the servo position management to the save/replay functionality.
+- make extension cable for servo.
 - build a gripper.
 - write up how to use.
 - Check whether those 12V motors are stronger then the 5V ones.
@@ -11,6 +11,9 @@
 # - - - - - - - - - - - - - - - - 
 # - - - - - -  DONE - - - - - - -
 # - - - - - - - - - - - - - - - -
+- make servoGripper Class
+- use the 3rd. potentiometer as servo (gripper) target pos in follow mode.
+- rewire that hardware to make the servo connection more robuts.
 - get a servo working with pigpiod.
 - use a switch to enable/disable endless repeat in replay mode.
 - Add a delete PositionList button.
@@ -20,12 +23,3 @@
 # - - - - - - - - - - - - - - - - 
 # - - - - - -  MEMO - - - - - - -
 # - - - - - - - - - - - - - - - -
-
-- fast blinks 2 times in row on button press while mode is "follow".
--> set mode to "fastBlink" at the same place in code where we save the current
-position to array.
-
-- slower blinks while mode "replay" until replay has finished.
--> we can achieve this with blinkLED.update() and setting the mode to
-"slowBlink" at the same place in code where the mode get's set to "replay"
-
