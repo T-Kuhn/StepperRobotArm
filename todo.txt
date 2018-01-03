@@ -9,6 +9,7 @@
 # - - - - - - - - - - - - - - - - 
 # - - - - - -  DONE - - - - - - -
 # - - - - - - - - - - - - - - - -
+- solve problem with gripper beginning to move faster then expected in replay mode.
 - add the servo position management to the save/replay functionality.
 - build a gripper.
 - make extension cable for servo.
