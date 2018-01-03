@@ -46,4 +46,3 @@ class ServoGripper:
             self.currentPos -= 1
         else:
             self.mode = "idle"
-

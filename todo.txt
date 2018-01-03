@@ -4,6 +4,7 @@
 - write up how to use.
 - Check whether those 12V motors are stronger then the 5V ones.
 - use ON switch for starting script. maybe.
+- start pigpiod on startup. 
 
 # - - - - - - - - - - - - - - - - 
 # - - - - - -  DONE - - - - - - -

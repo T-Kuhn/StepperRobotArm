@@ -66,7 +66,6 @@ def updateRobotArm():
     if stepperArm.mode is 'follow':
         if stepperArm.checkIfIdle():
             stepperArm.moveToPosition(replicaArm.posDict)
-        # TODO: add check whether servo is idle or not.
         stepperArm.moveGripperToPosition(replicaArm.servoPos)
     elif stepperArm.mode is 'replay':
         if stepperArm.checkIfIdle():
