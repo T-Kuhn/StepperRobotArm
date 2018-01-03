@@ -42,7 +42,8 @@ class StepperRobotArm:
     def checkIfIdle(self):
         self.port.write(b"?")
         if b"Idle" in self.waitForResponse():
-            return True
+            if self.servoGripper.mode is "idle":
+                return True
         else:
             return False
 
@@ -100,6 +101,7 @@ class StepperRobotArm:
     def saveCurrentPos(self):
         print("saving current pos")
         self.replayList.append(('arm', dict(self.currentPosDict)))
+        self.replayList.append(('gripper', self.servoGripper.currentPos))
         self.blinkLED.setMode('fastBlinkTwice')
 
     def prepareReplay(self):

@@ -76,6 +76,8 @@ def updateRobotArm():
                 print(reciever, command)
                 if reciever is 'arm':
                     stepperArm.moveToPositionRaw(command)
+                if reciever is 'gripper':
+                    stepperArm.moveGripperToPosition(command)
             else:
                 blinkLED.setMode('idle')
                 stepperArm.replayEnded()

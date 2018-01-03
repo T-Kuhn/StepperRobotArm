@@ -1,7 +1,6 @@
 # - - - - - - - - - - - - - - - - 
 # - - - - - -  TODO - - - - - - -
 # - - - - - - - - - - - - - - - -
-- add the servo position management to the save/replay functionality.
 - write up how to use.
 - Check whether those 12V motors are stronger then the 5V ones.
 - use ON switch for starting script. maybe.
@@ -9,6 +8,7 @@
 # - - - - - - - - - - - - - - - - 
 # - - - - - -  DONE - - - - - - -
 # - - - - - - - - - - - - - - - -
+- add the servo position management to the save/replay functionality.
 - build a gripper.
 - make extension cable for servo.
 - make servoGripper Class
@@ -16,7 +16,3 @@
 # - - - - - - - - - - - - - - - - 
 # - - - - - -  MEMO - - - - - - -
 # - - - - - - - - - - - - - - - -
-
-so here's a idea for the servo handling:
-whenever we save a position, we also add the servo thing as it's own entry 
-into the position list. 
