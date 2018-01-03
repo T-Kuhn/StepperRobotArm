@@ -16,9 +16,9 @@ class ServoGripper:
         self.pi = pigpiod_pi
         self.servoPin = servoPin
         self.targetPos = 0
-        self.currentPos = 500
+        self.currentPos = 0
         self.mode = 'idle'
-        self.sleepTime = 0.002
+        self.sleepTime = 0.001
         # available modes are:
         # - idle
         # - moving

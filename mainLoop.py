@@ -7,7 +7,6 @@ from replicaRobotArm import ReplicaRobotArm
 from blinkLED import BlinkLED 
 from button import Button
 from switch import Switch
-from servoGripper import ServoGripper
 import pigpio
 
 # - - - - - - - - - - - - - - - - 
@@ -28,10 +27,9 @@ servoGripperPin = 24     # Servo Gripper
 # - - -  Global Objects - - - - -
 # - - - - - - - - - - - - - - - -
 pi = pigpio.pi('localhost', 8888)
-servoGripper = ServoGripper(pi, servoGripperPin)
 
 blinkLED = BlinkLED(21)
-stepperArm = StepperRobotArm(blinkLED)
+stepperArm = StepperRobotArm(blinkLED, pi, servoGripperPin)
 replicaArm = ReplicaRobotArm()
 
 replayButton = Button(20, stepperArm.shortPressAction, lambda: True)
@@ -69,7 +67,7 @@ def updateRobotArm():
         if stepperArm.checkIfIdle():
             stepperArm.moveToPosition(replicaArm.posDict)
         # TODO: add check whether servo is idle or not.
-        servoGripper.setTargetPos(replicaArm.servoPos)
+        stepperArm.moveGripperToPosition(replicaArm.servoPos)
     elif stepperArm.mode is 'replay':
         if stepperArm.checkIfIdle():
             if stepperArm.replayStepList:

@@ -2,12 +2,16 @@
 
 import time
 from serial import Serial
+from servoGripper import ServoGripper
 
 # - - - - - - - - - - - - - - - - 
 # - - -  StepperRobotArm  - - - -
 # - - - - - - - - - - - - - - - -
 class StepperRobotArm:
-    def __init__(self, led):
+    def __init__(self, led, pi, servoGripperPin):
+        self.pi = pi
+        self.servoGripperPin = servoGripperPin
+        self.servoGripper = ServoGripper(self.pi, self.servoGripperPin)
         self.blinkLED = led
         self.port = Serial("/dev/ttyS0", baudrate=115200, timeout=0.001)
         self.wakeUpGrbl()
@@ -65,6 +69,9 @@ class StepperRobotArm:
             targetPosDict["Y"], 
             targetPosDict["Z"], 
             targetPosDict["A"])
+
+    def moveGripperToPosition(self, pos):
+        self.servoGripper.setTargetPos(pos)
 
     def sendTargetPositions(self, x, y, z, a):
         self.currentPosDict = {"X": x, "Y": y, "Z": z, "A": a}
