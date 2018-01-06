@@ -15,7 +15,7 @@ class ReplicaRobotArm:
         self.servoPos = 0
         self.corrDict = {"X": 0, "Y": 0, "Z": 0, "A": 0}
         self.getCorrValues()
-        self.k = 0.085
+        self.k = 0.09
 
     def update(self):
         self.updatePosDict()
