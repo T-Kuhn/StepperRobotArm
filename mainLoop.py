@@ -15,9 +15,9 @@ import pigpio
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(20, GPIO.IN)  # Replay button
 GPIO.setup(16,GPIO.IN)   # Delete button 
-GPIO.setup(6, GPIO.IN)   # ON switch
-GPIO.setup(13, GPIO.IN)  # Unused switch
-GPIO.setup(19, GPIO.IN)  # Unused switch
+GPIO.setup(6, GPIO.IN)   # Not Used
+GPIO.setup(13, GPIO.IN)  # Endless Repeat switch
+GPIO.setup(19, GPIO.IN)  # Set Origin switch
 GPIO.setup(26, GPIO.IN)  # Follow switch
 GPIO.setup(12, GPIO.IN)  # Repeat switch
 GPIO.setup(21, GPIO.OUT) # Blink LED
@@ -35,7 +35,7 @@ replicaArm = ReplicaRobotArm()
 replayButton = Button(20, stepperArm.shortPressAction, lambda: True)
 deleteButton = Button(16, stepperArm.deleteReplayList, lambda: True)
 
-onSwitch = Switch(6, lambda: True, lambda: True)
+notUsedSwitch = Switch(6, lambda: True, lambda: True)
 endlessRepeatSwitch = Switch(13, lambda: stepperArm.setEndlessReplay(True), lambda: stepperArm.setEndlessReplay(False))
 setOriginSwitch = Switch(19, replicaArm.getCorrValues, lambda: True)
 followSwitch = Switch(26, lambda: stepperArm.setMode('follow'), lambda: stepperArm.setMode('idle'))
@@ -47,7 +47,7 @@ repeatSwitch = Switch(12, lambda: stepperArm.setMode('replay'), lambda: stepperA
 def updateInputDevices():
     replayButton.update()
     deleteButton.update()
-    onSwitch.update()
+    notUsedSwitch.update()
     endlessRepeatSwitch.update()
     setOriginSwitch.update()
     followSwitch.update()
