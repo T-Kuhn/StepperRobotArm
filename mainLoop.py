@@ -13,7 +13,7 @@ import pigpio
 # - - - - - GPIO Setup  - - - - -
 # - - - - - - - - - - - - - - - -
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(20, GPIO.IN)  # Replay button
+GPIO.setup(20, GPIO.IN)  # Save button
 GPIO.setup(16,GPIO.IN)   # Delete button 
 GPIO.setup(6, GPIO.IN)   # Not Used
 GPIO.setup(13, GPIO.IN)  # Endless Repeat switch
